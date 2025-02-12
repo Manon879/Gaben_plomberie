@@ -1,0 +1,32 @@
+@import url("../../App.css");
+
+.navBar {
+    background-color: var(--neutralColor);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: .5rem;
+}
+.titleNav {
+    font-family: var(--textFont);
+    font-size: x-small;
+    color: var(--primaryColor);
+}
+.logo {
+    height: 100px;
+    width: 150px;
+}
+.buttonNav {
+    background-color: var(--secondaryColor);
+    font-family: var(--textFont);
+    font-size: x-small;
+    color: var(--primaryColor);
+    height: min-content;
+    width: min-content;
+    padding: .5rem;
+    border-radius: 10px;
+    border: none;
+    text-decoration: none;
+}

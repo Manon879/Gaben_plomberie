@@ -1,0 +1,17 @@
+@import url("../../App.css");
+
+.description {
+    background-color: var(--neutralColor);
+}
+.titleDescription {
+    font-family: var(--titleFont);
+    color: var(--secondaryColo);
+    padding: var(--spacing);
+}
+.pDescription {
+    font-family: var(--textFont);
+    color: var(--textFont);
+    margin-left: var(--spacing);
+    margin-right: var(--spacing);
+    font-size: x-small;
+}
