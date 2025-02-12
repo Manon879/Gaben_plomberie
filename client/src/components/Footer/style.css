@@ -1,9 +1,9 @@
 @import url(../../App.css);
 
 .end {
-    background-color: var(--neutralColor);
-    font-family: var(--textFont);
-    font-size: x-small;
-    text-align: center;
-    padding: var(--spacing);
+  background-color: var(--neutralColor);
+  font-family: var(--textFont);
+  font-size: x-small;
+  text-align: center;
+  padding: var(--spacing);
 }

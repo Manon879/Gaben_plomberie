@@ -7,8 +7,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
-import UserNavBar from "./components/NavBar";
 import Description from "./components/Description";
+import UserNavBar from "./components/NavBar";
 import ServiceSwiper from "./components/Swiper";
 
 // Import additional components for new routes
@@ -28,16 +28,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/navBar",
-    element: <UserNavBar />
+    element: <UserNavBar />,
   },
   {
-  path: "/description",
-  element: <Description/>
+    path: "/description",
+    element: <Description />,
   },
   {
-    path:"/swipe",
-    element:<ServiceSwiper />
-  }
+    path: "/swipe",
+    element: <ServiceSwiper />,
+  },
   // Try adding a new route! For example, "/about" with an About component
 ]);
 

@@ -8,7 +8,6 @@
   --titleFont: "Spectral";
   --textFont: "Raleway";
 
-
   --secondaryColor: #4d888e;
   --primaryColor: #3f3f3f;
   --neutralColor: #eaf1f1;
@@ -31,8 +30,7 @@
 
 @font-face {
   font-family: "Raleway";
-  src: url("./assets/font/Raleway/Raleway-Regular.ttf")
-    format("truetype");
+  src: url("./assets/font/Raleway/Raleway-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
