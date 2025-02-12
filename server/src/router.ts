@@ -17,8 +17,10 @@ router.get("/service", adminActions.browseServices);
 router.get("/service/:serviceId", adminActions.readService);
 router.post("/admin/:adminId/service", adminActions.addService);
 router.put("/admin/:adminId/service/:serviceId", adminActions.editService);
-router.delete("/admin/:adminId/service/:serviceId", adminActions.destroyService);
-
+router.delete(
+  "/admin/:adminId/service/:serviceId",
+  adminActions.destroyService,
+);
 
 /* ************************************************************************* */
 

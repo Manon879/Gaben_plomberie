@@ -1,9 +1,7 @@
-import { RequestHandler } from "express";
+import type { RequestHandler } from "express";
 import adminRepository from "./adminRepository";
 
-
-
-const  browse: RequestHandler = async (req, res, next ) => {
+const browse: RequestHandler = async (req, res, next) => {
   try {
     const admins = await adminRepository.readAll();
     res.json(admins);
@@ -12,7 +10,7 @@ const  browse: RequestHandler = async (req, res, next ) => {
   }
 };
 
-const read: RequestHandler = async (req, res, next ) => {
+const read: RequestHandler = async (req, res, next) => {
   try {
     const adminId = Number(req.params.id);
     const admin = await adminRepository.read(adminId);
@@ -27,7 +25,7 @@ const read: RequestHandler = async (req, res, next ) => {
   }
 };
 
-const add: RequestHandler = async (req, res, next ) => {
+const add: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const insertId = await adminRepository.create({ email, password });

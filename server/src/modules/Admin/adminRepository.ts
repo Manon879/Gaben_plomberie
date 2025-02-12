@@ -16,9 +16,7 @@ interface Service {
 }
 
 class AdminRepository {
-
   async create(admin: Omit<Admin, "id">) {
-
     const [result] = await databaseClient.execute<Result>(
       `INSERT INTO admin (email, password)
       VALUES (?, ?)`,
@@ -29,7 +27,6 @@ class AdminRepository {
   }
 
   async read(id: number) {
-
     const [rows] = await databaseClient.query<Rows>(
       `SELECT * FROM admin
       WHERE id = ?`,
@@ -42,7 +39,7 @@ class AdminRepository {
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
       `SELECT id, email
-      FROM admin `
+      FROM admin `,
     );
 
     return rows as Admin[];
@@ -53,16 +50,16 @@ class AdminRepository {
       `UPDATE admin
       SET email = ?, password = ? 
       WHERE id = ?`,
-      [admin.email, admin.password, admin.id]
+      [admin.email, admin.password, admin.id],
     );
     return rows.affectedRows > 0;
   }
 
-  async delete (adminId: number) {
+  async delete(adminId: number) {
     const [result] = await databaseClient.execute<Result>(
       `DELETE FROM admin
       WHERE id = ?`,
-      [adminId]
+      [adminId],
     );
     return result.affectedRows;
   }
@@ -75,44 +72,56 @@ class AdminRepository {
     const [result] = await databaseClient.execute<Result>(
       `INSERT INTO service (title, description, picture)
       VALUES (?, ?, ?)`,
-      [service.title, service.description, service.picture]
+      [service.title, service.description, service.picture],
     );
     return result.insertId;
   }
 
   async getServiceById(serviceId: number) {
     const [rows] = await databaseClient.execute<Rows>(
-      `SELECT * FROM service WHERE id = ?`,
-      [serviceId]
+      `SELECT * 
+      FROM service 
+      WHERE id = ?`,
+      [serviceId],
     );
     return rows[0] as Service;
   }
 
   async getAllServices() {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT * FROM service`
-    ); 
-    return rows as Service[]; 
+      `SELECT * 
+      FROM service`,
+    );
+    return rows as Service[];
   }
-  async updateService(adminId: number, serviceId: number, service: Partial<Omit<Service, "id">>) {
+  async updateService(
+    adminId: number,
+    serviceId: number,
+    service: Partial<Omit<Service, "id">>,
+  ) {
     const admin = await this.read(adminId);
-    if (!admin){
+    if (!admin) {
       throw new Error("Admin non trouvé");
     }
     const existingService = await this.getServiceById(serviceId);
     if (!existingService) {
-      throw new Error ("SErvice non trouvé");
+      throw new Error("SErvice non trouvé");
     }
     const updatedService = {
       title: service.title ?? existingService.title,
       description: service.description ?? existingService.description,
-      picture: service.picture ?? existingService.picture
+      picture: service.picture ?? existingService.picture,
     };
-    const [result] = await databaseClient.execute<Result> (
+    const [result] = await databaseClient.execute<Result>(
       `UPDATE service
       SET title = ?, description = ?, picture = ?
       WHERE id = ?`,
-      [updatedService.title, updatedService.description, updatedService.picture, serviceId]
+      [
+        updatedService.title,
+        updatedService.description,
+        updatedService.picture,
+        serviceId,
+      ],
     );
     return result.affectedRows > 0;
   }
@@ -122,26 +131,31 @@ class AdminRepository {
       throw new Error("Admin non trouvé");
     }
     const [result] = await databaseClient.execute<Result>(
-      `DELETE FROM service WHERE id = ?`,
-      [serviceId]
+      `DELETE FROM service 
+      WHERE id = ?`,
+      [serviceId],
     );
     return result.affectedRows > 0;
   }
 
-  async updateServicePicture(adminId: number, serviceId: number, picture: string) {
+  async updateServicePicture(
+    adminId: number,
+    serviceId: number,
+    picture: string,
+  ) {
     const admin = await this.read(adminId);
     if (!admin) {
       throw new Error("Admin non trouvé");
     }
 
     const [result] = await databaseClient.execute<Result>(
-      `UPDATE service SET picture = ? WHERE id = ?`,
-      [picture, serviceId]
+      `UPDATE service 
+      SET picture = ? 
+      WHERE id = ?`,
+      [picture, serviceId],
     );
     return result.affectedRows > 0;
   }
 }
 
 export default new AdminRepository();
-
-
