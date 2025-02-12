@@ -3,6 +3,7 @@
 import express from "express";
 
 const app = express();
+app.use(express.json());
 
 // Configure it
 
@@ -52,7 +53,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
@@ -63,7 +64,7 @@ app.use(
 import router from "./router";
 
 // Mount the API router under the "/api" endpoint
-app.use(router);
+app.use("/api", router);
 
 /* ************************************************************************* */
 
