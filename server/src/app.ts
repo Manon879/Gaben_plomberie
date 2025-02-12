@@ -31,9 +31,9 @@ if (process.env.CLIENT_URL != null) {
 app.use(
   cors({
     origin: ["http://mysite.com", "http://another-domain.com"],
-  }),
-);
-*/
+    }),
+    );
+    */
 
 // With ["http://mysite.com", "http://another-domain.com"]
 // to be replaced with an array of your trusted origins
@@ -87,6 +87,7 @@ if (fs.existsSync(publicFolderPath)) {
 }
 
 // Serve client resources
+app.use(express.static("public"));
 
 const clientBuildPath = path.join(__dirname, "../../client/dist");
 
@@ -119,7 +120,6 @@ const logErrors: ErrorRequestHandler = (err, req, res, next) => {
 
 // Mount the logErrors middleware globally
 app.use(logErrors);
-
 /* ************************************************************************* */
 
 export default app;
