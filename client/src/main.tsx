@@ -8,8 +8,10 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 import Description from "./components/Description";
+import ContactBlock from "./components/Formulaire";
 import UserNavBar from "./components/NavBar";
 import ServiceSwiper from "./components/Swiper";
+import BackOfficeServices from "./pages/BackOffice";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
   {
     path: "/swipe",
     element: <ServiceSwiper />,
+  },
+  {
+    path: "/backoffice",
+    element: <BackOfficeServices />,
+  },
+  {
+    path: "/contact",
+    element: <ContactBlock />,
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);

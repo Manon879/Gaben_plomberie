@@ -34,7 +34,7 @@ export default function ServiceSwiper({
     const fetchServices = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:3310/api/service");
+        const response = await fetch("http://localhost:3310/api/services");
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des services");
         }

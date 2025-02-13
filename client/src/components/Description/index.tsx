@@ -4,6 +4,11 @@ export default function Description() {
   return (
     <section className="description">
       <h2 className="titleDescription">Présentation</h2>
+      <img
+        src="./public/IMG-20250212-WA0027.jpg"
+        alt="photos description"
+        className="imgDescription"
+      />
       <p className="pDescription">
         Gaben Plomberie est une entreprise de plomberie de confiance qui propose
         des services de qualité supérieure à ses clients depuis plusieurs
