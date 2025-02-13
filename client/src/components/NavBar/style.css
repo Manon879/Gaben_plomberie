@@ -31,9 +31,8 @@
   text-decoration: none;
 }
 @media screen and (min-width: 768px) {
-
   .titleNav {
-    font-size:larger;
+    font-size: larger;
   }
   .logo {
     height: 150px;
@@ -43,4 +42,3 @@
     font-size: small;
   }
 }
-
