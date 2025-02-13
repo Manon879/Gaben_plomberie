@@ -58,7 +58,7 @@
 .cardDesktop p,
 .crlImgContainer p {
   font-family: var(--textFont);
-  color: var(--primaryColor);
+  color: var(--textColor);
   text-align: center;
 }
 

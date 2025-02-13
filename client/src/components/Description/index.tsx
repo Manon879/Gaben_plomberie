@@ -3,7 +3,7 @@ import "./style.css";
 export default function Description() {
   return (
     <section className="description">
-      <h2 className="titleDescription">Présentation</h2>
+      <h2 className="titleDescription">A Propos de nous</h2>
       <img
         src="./public/IMG-20250212-WA0027.jpg"
         alt="photos description"

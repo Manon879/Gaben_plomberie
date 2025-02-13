@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: .5rem;
 }
 .contact {
   text-align: center;
@@ -16,7 +17,8 @@
 }
 .Name,
 .Email,
-.Message {
+.Message,
+.Subject {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -24,7 +26,8 @@
 
 .blockMessage,
 .blockEmail,
-.blockName {
+.blockName,
+.blockSubject {
   font-family: var(--textFont);
   background-color: var(--secondaryColor);
   border: none;
@@ -39,6 +42,7 @@
 .contactDescription {
   padding: .5rem;
 }
+
 .send {
   margin-top: .5rem;
   padding: .5rem;
@@ -50,7 +54,9 @@
   font-size: larger;
   cursor: pointer;
 }
-
+::placeholder {
+  color: var(--textColor);
+}
 @media screen and (min-width: 768px) {
   .contactForm {
     text-align: center;

@@ -7,3 +7,12 @@
   text-align: center;
   padding: var(--spacing);
 }
+.titleFooter {
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--textColor);
+}
+.titleFooter:hover {
+  color: var(--primaryColor);
+  text-decoration: none;
+}
