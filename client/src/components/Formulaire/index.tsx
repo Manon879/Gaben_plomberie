@@ -123,7 +123,17 @@ export default function ContactBlock() {
           />
         </label>
         {emailError && <p className="errorEmail">{emailError}</p>}
-
+        <label htmlFor="subject" className="Subject">
+          <textarea
+            id="number"
+            className="blockSubject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            placeholder="Sujet..."
+            required
+          />
+        </label>
         <label htmlFor="message" className="Message">
           <textarea
             id="message"

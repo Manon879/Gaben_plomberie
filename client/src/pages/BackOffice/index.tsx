@@ -176,14 +176,9 @@ const BackOfficeServices = () => {
           <Card key={service.id}>
             <CardMedia
               component="img"
-              height="50"
-              width="50"
               image={`${import.meta.env.VITE_API_URL}/${service.picture}`}
               alt={service.title}
               style={{
-                objectFit: "cover",
-                width: "30%",
-                height: "200px",
                 objectPosition: "center",
               }}
             />
