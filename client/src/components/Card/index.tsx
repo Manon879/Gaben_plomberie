@@ -13,7 +13,7 @@ export default function Card({
 }: CardProps) {
   return (
     <figure className={figureClass}>
-      <img src={picture} alt={title} />
+      <img src={`${import.meta.env.VITE_API_URL}/${picture}`} alt={title} />
       <figcaption className="caption">
         <h3>{title}</h3>
         <p>{description}</p>

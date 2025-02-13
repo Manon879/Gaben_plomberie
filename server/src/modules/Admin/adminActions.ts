@@ -1,4 +1,4 @@
-import type { RequestHandler } from "express";
+import type { Request, RequestHandler } from "express";
 import adminRepository from "./adminRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
@@ -60,10 +60,9 @@ const readService: RequestHandler = async (req, res, next) => {
 
 const addService: RequestHandler = async (req, res, next) => {
   try {
-    const adminId = Number(req.params.adminId);
     const { title, description, picture } = req.body;
 
-    const insertId = await adminRepository.createService(adminId, {
+    const insertId = await adminRepository.createService({
       title,
       description,
       picture,
@@ -71,17 +70,21 @@ const addService: RequestHandler = async (req, res, next) => {
 
     res.status(201).json({ insertId });
   } catch (err) {
-    next(err);
+    console.error("Erreur lors de la création du service:", err);
+    const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    res.status(500).json({
+      message: "Erreur lors de la création du service",
+      error: errorMessage,
+    });
   }
 };
 
 const editService: RequestHandler = async (req, res, next) => {
   try {
-    const adminId = Number(req.params.adminId);
     const serviceId = Number(req.params.serviceId);
     const { title, description, picture } = req.body;
 
-    const success = await adminRepository.updateService(adminId, serviceId, {
+    const success = await adminRepository.updateService(serviceId, {
       title,
       description,
       picture,
@@ -96,13 +99,11 @@ const editService: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
-
 const destroyService: RequestHandler = async (req, res, next) => {
   try {
-    const adminId = Number(req.params.adminId);
     const serviceId = Number(req.params.serviceId);
 
-    const success = await adminRepository.deleteService(adminId, serviceId);
+    const success = await adminRepository.deleteService(serviceId);
 
     if (success) {
       res.sendStatus(204);
@@ -111,6 +112,38 @@ const destroyService: RequestHandler = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
+  }
+};
+
+interface CustomRequest extends Request {
+  fileValidationError?: string;
+}
+
+const handleUpload: RequestHandler = async (req: CustomRequest, res, next) => {
+  if (req.fileValidationError) {
+    res.status(400).json({ error: req.fileValidationError });
+    return;
+  }
+
+  if (!req.file) {
+    res.status(400).json({ error: "No file uploaded" });
+    return;
+  }
+
+  try {
+    // Utiliser un chemin relatif pour l'URL
+    const relativePath = `uploads/${req.file.filename}`;
+
+    res.status(200).json({
+      fileUrl: relativePath,
+      filename: req.file.filename,
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    res.status(500).json({ error: "Upload failed", details: errorMessage });
+    next(error);
   }
 };
 
@@ -123,4 +156,5 @@ export default {
   addService,
   editService,
   destroyService,
+  handleUpload,
 };

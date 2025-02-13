@@ -64,11 +64,7 @@ class AdminRepository {
     return result.affectedRows;
   }
 
-  async createService(adminId: number, service: Omit<Service, "id">) {
-    const admin = await this.read(adminId);
-    if (!admin) {
-      throw new Error("Admin non trouvé");
-    }
+  async createService(service: Omit<Service, "id">) {
     const [result] = await databaseClient.execute<Result>(
       `INSERT INTO service (title, description, picture)
       VALUES (?, ?, ?)`,
@@ -76,7 +72,6 @@ class AdminRepository {
     );
     return result.insertId;
   }
-
   async getServiceById(serviceId: number) {
     const [rows] = await databaseClient.execute<Rows>(
       `SELECT * 
@@ -95,25 +90,22 @@ class AdminRepository {
     return rows as Service[];
   }
   async updateService(
-    adminId: number,
     serviceId: number,
     service: Partial<Omit<Service, "id">>,
   ) {
-    const admin = await this.read(adminId);
-    if (!admin) {
-      throw new Error("Admin non trouvé");
-    }
     const existingService = await this.getServiceById(serviceId);
     if (!existingService) {
-      throw new Error("SErvice non trouvé");
+      throw new Error("Service non trouvé");
     }
+
     const updatedService = {
       title: service.title ?? existingService.title,
       description: service.description ?? existingService.description,
       picture: service.picture ?? existingService.picture,
     };
+
     const [result] = await databaseClient.execute<Result>(
-      `UPDATE service
+      `UPDATE service 
       SET title = ?, description = ?, picture = ?
       WHERE id = ?`,
       [
@@ -123,37 +115,27 @@ class AdminRepository {
         serviceId,
       ],
     );
+
     return result.affectedRows > 0;
   }
-  async deleteService(adminId: number, serviceId: number) {
-    const admin = await this.read(adminId);
-    if (!admin) {
-      throw new Error("Admin non trouvé");
-    }
+  async deleteService(serviceId: number): Promise<boolean> {
     const [result] = await databaseClient.execute<Result>(
-      `DELETE FROM service 
-      WHERE id = ?`,
+      `DELETE FROM service
+       WHERE id = ?`,
       [serviceId],
     );
+
     return result.affectedRows > 0;
   }
 
-  async updateServicePicture(
-    adminId: number,
-    serviceId: number,
-    picture: string,
-  ) {
-    const admin = await this.read(adminId);
-    if (!admin) {
-      throw new Error("Admin non trouvé");
-    }
-
+  async updateServicePicture(serviceId: number, picture: string) {
     const [result] = await databaseClient.execute<Result>(
       `UPDATE service 
-      SET picture = ? 
+      SET picture = ?
       WHERE id = ?`,
       [picture, serviceId],
     );
+
     return result.affectedRows > 0;
   }
 }
